@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editare Episod</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+<h2 th:text="${dbId == null} ? 'Adaugă Episod' : 'Editează Episod'"></h2>
+
+<form th:action="@{/admin/save}" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="dbId" th:value="${dbId}" />
+
+    <div class="mb-3">
+        <label>Titlu</label>
+        <input type="text" name="titlu" th:value="${episod.titlu}" class="form-control" required />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Sezon</label>
+            <input type="number" name="sezon" th:value="${episod.sezon}" class="form-control" required />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Număr Episod</label>
+            <input type="number" name="numarEpisod" th:value="${episod.numarEpisod}" class="form-control" required />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Descriere</label>
+        <textarea name="descriere" class="form-control" rows="4" th:text="${episod.descriere}"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Imagine (Upload)</label>
+        <input type="file" name="imageFile" class="form-control" accept="image/*" />
+        <small class="text-muted">Lasă gol dacă nu vrei să schimbi imaginea existentă.</small>
+    </div>
+
+    <div th:if="${episod.imagine != null}" class="mb-3">
+        <p>Imagine Curentă:</p>
+        <img th:src="${episod.imagine}" style="height: 100px;">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvează</button>
+    <a href="/admin" class="btn btn-secondary">Anulează</a>
+</form>
+
+</body>
+</html>

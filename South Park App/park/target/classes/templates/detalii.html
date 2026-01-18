@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalii Episod</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <a href="/" class="btn btn-secondary mb-4">&larr; Înapoi la Listă</a>
+
+    <div class="card shadow-lg">
+        <div class="row g-0">
+            <div class="col-md-5 bg-white d-flex align-items-center justify-content-center p-3">
+                <img th:src="${episod.imagine}" class="img-fluid rounded" alt="Imagine">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body p-5">
+                    <h1 class="card-title display-5" th:text="${episod.titlu}">Titlu</h1>
+
+                    <div class="badge bg-primary fs-6 mb-3">Sezonul <span th:text="${episod.sezon}"></span></div>
+                    <div class="badge bg-info fs-6 mb-3">Episodul <span th:text="${episod.numarEpisod}"></span></div>
+
+                    <hr>
+
+                    <h4>Descriere</h4>
+                    <p class="card-text fs-5 text-secondary" th:text="${episod.descriere}"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

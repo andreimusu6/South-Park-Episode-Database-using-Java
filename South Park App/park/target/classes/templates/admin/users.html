@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard - Utilizatori</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light p-5">
+
+<div class="container bg-white p-4 shadow rounded">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <h2 class="text-dark">🛠️ Panou Administrare</h2>
+        <div>
+            <span class="me-3 text-muted">Logat ca: <b th:text="${#authentication.name}">Admin</b></span>
+            <a href="/logout" class="btn btn-outline-danger">Deconectare</a>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/admin">🎬 Gestionare Episoade</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active fw-bold" href="/admin/users">👥 Gestionare Utilizatori</a>
+        </li>
+    </ul>
+
+    <h4>Lista Conturi Înregistrate</h4>
+    <p class="text-muted mb-4">Aici poți gestiona utilizatorii care au acces la platformă.</p>
+
+    <div th:if="${param.error}" class="alert alert-danger">
+        ⚠️ Eroare: Nu îți poți șterge propriul cont cât timp ești logat!
+    </div>
+
+    <table class="table table-striped mt-3 align-middle">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Rol</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.username}" class="fw-bold">user</td>
+            <td>
+                <span class="badge"
+                      th:classappend="${user.role == 'ROLE_ADMIN'} ? 'bg-danger' : 'bg-primary'"
+                      th:text="${user.role}">ROLE</span>
+            </td>
+            <td>
+                <a th:if="${user.username != #authentication.name}"
+                   th:href="@{/admin/users/delete/{id}(id=${user.id})}"
+                   class="btn btn-outline-danger btn-sm"
+                   onclick="return confirm('Ești sigur că vrei să ștergi acest utilizator? Această acțiune este ireversibilă!')">
+                    🗑️ Șterge Cont
+                </a>
+
+                <span th:if="${user.username == #authentication.name}" class="text-muted small fst-italic">
+                    (Contul curent)
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
